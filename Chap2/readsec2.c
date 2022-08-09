@@ -34,9 +34,10 @@ int main(int argc, char *argv[])
 
   /* shstr は shdr の i = ehdr->e_shstrndx(=10 for elfsamp.o) としたもの。*/
   shstr = (Elf64_Shdr *)(head + ehdr->e_shoff + ehdr->e_shentsize * ehdr->e_shstrndx);
-  printf("%lu\n", head);
-  printf("%lu\n", shstr);
-  printf("%lu (offset of readelf -S eflsamp.o)\n", shstr->sh_offset);
+  printf("head\t\t:\t%lu\n", head);
+  printf("section header\t:\t%lu\n", shstr);
+  printf("\t\t%lu\n", (unsigned long int *)shstr - (unsigned long int *)head);
+  printf("Offset of .shstrtat : %lu (from file top)\n", shstr->sh_offset);
 
   printf("\n");
   for (i = 0; i < ehdr->e_shnum; i++) {
